@@ -137,7 +137,7 @@ void single_player_game(void) {
         print_game("Player 2, choose X or 0.");
     while (piece_choice != 'X' && piece_choice != '0' && piece_choice != 'Q') {
         printf("Player %d, ", current_player);
-        char *piece_string = get_move("choose X or 0: ", 1);
+        char *piece_string = get_move("choose X or 0 (q to exit): ", 1);
         piece_choice = toupper(piece_string[0]);
         free(piece_string);
     }
