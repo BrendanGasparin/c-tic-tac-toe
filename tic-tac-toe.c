@@ -80,7 +80,7 @@ int get_no_of_players(char *prompt) {
         else if (tolower(no_of_players[0]) == 'q')
         {
             free(no_of_players);
-            printf("Exiting program.\n");
+            printf("Exiting Tic-Tac-Toe.\n");
             exit(0);
         }
     }
@@ -131,13 +131,20 @@ void single_player_game(void) {
         current_player = 2;
 
     // Get starting player's choice of X or 0
-    printf("Player %d, ", current_player);
-    print_game("choose X or 0.");
-    while (piece_choice != 'X' && piece_choice != '0') {
+    if (current_player == 1)
+        print_game("Player 1, choose X or 0.");
+    else
+        print_game("Player 2, choose X or 0.");
+    while (piece_choice != 'X' && piece_choice != '0' && piece_choice != 'Q') {
         printf("Player %d, ", current_player);
         char *piece_string = get_move("choose X or 0: ", 1);
         piece_choice = toupper(piece_string[0]);
         free(piece_string);
+    }
+
+    if (piece_choice == 'Q') {
+        printf("Exiting Tic-Tac-Toe.\n");
+        exit(0);
     }
 
     // Assign pieces to players
