@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,12 +9,30 @@ int main(void)
 {
     system("clear");
     printf("TIC-TAC-TOE\n");
-    printf("Enter 1 or 2 for players.\n");
-    printf("-----------\n\n");
+    printf("-----------\n");
+    printf("Enter 1 or 2 for players.\n\n");
     print_grid();
     printf("\n");
 
-    char *no_of_players = get_move("1 or 2 Players: ", 1);
+    char* no_of_players;
+    int players = -1;
+
+    while (players <= 0)
+    {
+        no_of_players = get_move("1 or 2 Players (q to exit): ", 1);
+
+        if (no_of_players[0] == '1')
+            players = 1;
+        else if (no_of_players[0] == '2')
+            players = 2;
+        else if (tolower(no_of_players[0]) == 'q')
+        {
+            printf("Exiting program.\n");
+            exit(0);
+        }
+    }
+
+    // TODO: The game stuff
 
     free(no_of_players);
 
@@ -37,7 +56,7 @@ char *get_move(char *prompt, int no_of_chars) {
     int c;
     char *input = (char *)malloc((no_of_chars + 1) * sizeof(char));
     if(input == NULL) {
-        printf("Memory allocaiton failed.\n");
+        printf("Memory allocation failed.\n");
         exit(EXIT_FAILURE);
     }
 
