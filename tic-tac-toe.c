@@ -17,9 +17,21 @@ int main(void)
     char* no_of_players;
     int players = -1;
 
+    players = get_no_of_players("1 or 2 Players (q to exit):");
+
+    // TODO: The game stuff
+
+    free(no_of_players);
+
+    return 0;
+}
+
+int get_no_of_players(char *prompt) {
+    char* no_of_players;
+    int players = -1;
     while (players <= 0)
     {
-        no_of_players = get_move("1 or 2 Players (q to exit): ", 1);
+        no_of_players = get_move(prompt, 1);
 
         if (no_of_players[0] == '1')
             players = 1;
@@ -32,11 +44,7 @@ int main(void)
         }
     }
 
-    // TODO: The game stuff
-
-    free(no_of_players);
-
-    return 0;
+    return players;
 }
 
 void print_grid(void) {
