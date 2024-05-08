@@ -11,6 +11,7 @@ int board[BOARD_SIZE][BOARD_SIZE];
 char *get_move(char *prompt, int characters);
 int get_no_of_players(char *prompt);
 void print_board(void);
+void print_game(char *subheading);
 void print_header(void);
 void single_player_game(void);
 
@@ -32,8 +33,7 @@ int main(void)
 
     // If 1 player then warn the user and exit
     if (players == 1) {
-        print_header();
-        printf("CPU player not implemented. Try a 2 player game.\n\n");
+        print_game("CPU player not implemented. Try a 2 player game.");
         print_board();
         printf("CPU player not implemented. Try a 2 player game.\nExiting Tic-Tac-Toe.\n");
         exit(0);
@@ -107,9 +107,17 @@ void print_header(void) {
     printf("-----------\n");
 }
 
+void print_game(char *subheading) {
+    print_header();
+    printf("%s\n\n", subheading);
+    print_board();
+}
+
 void single_player_game(void) {
-    unsigned short current_player;
     bool game_over = false;
+    unsigned short current_player;
+    char player1_piece, player2_piece;
+    char piece_choice = ' ';
 
     // RANDOMLY SELECT A STARTING PLAYER
     // Seed the random number generator using the current time
@@ -121,4 +129,30 @@ void single_player_game(void) {
         current_player = 1;
     else
         current_player = 2;
+
+    // Get starting player's choice of X or 0
+    printf("Player %d, ", current_player);
+    print_game("choose X or 0.");
+    while (piece_choice != 'X' && piece_choice != '0') {
+        printf("Player %d, ", current_player);
+        char *piece_string = get_move("choose X or 0: ", 1);
+        piece_choice = toupper(piece_string[0]);
+        free(piece_string);
+    }
+
+    // Assign pieces to players
+    if (current_player == 1) {
+        player1_piece = piece_choice;
+        if (piece_choice == 'X')
+            player2_piece == '0';
+        else
+            player2_piece == 'X';
+    }
+    else {
+        player2_piece = piece_choice;
+        if (piece_choice == 'X')
+            player1_piece == '0';
+        else
+            player1_piece == 'X';
+    }
 }
